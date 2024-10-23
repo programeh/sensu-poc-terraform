@@ -5,5 +5,5 @@ resource "sensu_check" "billing-availability" {
   subscriptions  = ["nginx"]
   runtime_assets = ["monitoring-plugins"]
   publish        = true
-  interval       = 3
+  interval       = 20
 }
