@@ -185,3 +185,34 @@ resource "sensu_asset" "monitoring_plugins_default" {
     ]
   }
 }
+
+resource "sensu_asset" "sensuPagerdutyHandler" {
+  name      = "sensuPagerdutyHandler"
+  namespace = "default"
+  build {
+    url     = "https://github.com/francispereira/sensu-pagerduty-handler/releases/download/2.5.4/sensu-pagerduty-handler_2.5.4_linux_amd64.tar.gz"
+    sha512  = "60a4426172ca34b00dc2fcb4645b9feb2be84cfca45ed20c8aaefc9dd687c0a710735fa83905c1d878e69e7131548c78ceff9765b5cdb3adf1580585b7538ad5"
+    filters = [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ]
+  }
+}
+
+resource "sensu_asset" "sensu_dependencies_filter_default" {
+  name      = "sensu-dependencies-filter"
+  namespace = "default"
+  build {
+    url    = "https://assets.bonsai.sensu.io/aacbcf82f94481d58483baac33b96647e50cdbdf/sensu-dependencies-filter_0.0.6.tar.gz"
+    sha512 = "134a79a8f667808e2055ac5b3656599fb1ec6a9db68d6e39759496f6fa377f3e80adfe2f10274b6c02371190942cd2fb4937b6f92f43b69df6a7b32933817e91"
+  }
+}
+
+resource "sensu_asset" "sensu_go_fatigue_check_filter_default" {
+  name      = "sensu-go-fatigue-check-filter"
+  namespace = "default"
+  build {
+    url    = "https://assets.bonsai.sensu.io/9d58cca88863fcf6fbc50c560daeb78429b6009e/sensu-go-fatigue-check-filter_0.6.2.tar.gz"
+    sha512 = "da861daf54032c28d9131a3800c0a8de122f591cd2bc7b9601e11e529e63a1fd3227fe67c5e3a800164224111fbe477dadee59196287d6b2e9c183b99b03f37d"
+  }
+}
