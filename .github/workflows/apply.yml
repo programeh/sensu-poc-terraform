@@ -1,0 +1,41 @@
+name: terraform apply
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  terraform-apply:
+    concurrency: terraform-plan-and-apply
+    runs-on: 'ubuntu-latest'
+    if: github.run_attempt == 1
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1.8.0
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATEKEY }}
+
+      - name: Download Asset
+        uses: robinraju/release-downloader@v1.8
+        with:
+          repository: programeh/sensu-poc-terraform
+          tag: ${{ github.event.release.name }}
+          fileName: sensu-terraform-build.zip
+          token: ${{ steps.generate_token.outputs.token }}
+
+      - name: Unzip Asset
+        run: unzip sensu-terraform-build.zip && rm -rf sensu-terraform-build.zip
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.6
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Initialize Terraform Provider and Modules
+        run: terraform init
+
+      - name: Apply the terrraform plan generated
+        run: terraform apply terraform.tfplan
