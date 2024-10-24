@@ -15,9 +15,9 @@ resource "sensu_check" "billing-availability" {
   subscriptions  = ["nginx"]
   runtime_assets = ["monitoring-plugins"]
   publish        = true
-  interval       = 20
+  interval       = 10
   annotations = {
-    "fatigue_check/occurrences" = "30",
+    "fatigue_check/occurrences" = "6",
     "fatigue_check/interval"    = "3600",
     "sensu.io/plugins/sensu-pagerduty-handler/config/status-map" : jsonencode({
       "info" : [0],

@@ -221,7 +221,7 @@ resource "sensu_asset" "remediation_handler_asset" {
   name      = "sensu-remediation-handler"
   namespace = "default"
   build {
-    url    = "https://assets.bonsai.sensu.io/9d58cca88863fcf6fbc50c560daeb78429b6009e/sensu-go-fatigue-check-filter_0.6.2.tar.gz"
-    sha512 = "da861daf54032c28d9131a3800c0a8de122f591cd2bc7b9601e11e529e63a1fd3227fe67c5e3a800164224111fbe477dadee59196287d6b2e9c183b99b03f37d"
+    url    = "https://github.com/calebhailey/sensu-go-remediation-handler/releases/download/1.0.0/sensu-remediation-handler_1.0.0_linux_amd64.tar.gz"
+    sha512 = "1d0b2e09aa43705978e3c9eb0cee5935611b31885778028d08ca62b4eb2970f98ea02ae8a358512d4e1e617b00d0b21be1d0562dfaeda73623227151f324b09f"
   }
 }
