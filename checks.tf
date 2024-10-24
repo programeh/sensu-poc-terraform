@@ -6,5 +6,5 @@ resource "sensu_check" "billing-availability" {
   runtime_assets = ["monitoring-plugins"]
   publish        = true
   interval       = 20
-  handlers = [sensu_handler.pagerdutyWarningHandler.name,sensu_handler.SOPExecuteHandler.name,sensu_handler.pagerdutyEscalationHandler.name]
+  handlers = [sensu_handler.pagerdutyV2.name]
 }
