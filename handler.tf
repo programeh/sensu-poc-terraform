@@ -82,8 +82,8 @@ resource "sensu_handler" "SensuRemediationHandler" {
   timeout = 10
   runtime_assets = [sensu_asset.remediation_handler_asset.name]
   env_vars = {
-    SENSU_API_USER=pavan
-    SENSU_API_PASS=password
+    SENSU_API_USER="pavan"
+    SENSU_API_PASS="password"
     SENSU_API_URL="http://43.203.207.128:8080"
   }
 }
