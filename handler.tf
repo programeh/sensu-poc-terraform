@@ -75,3 +75,15 @@ resource "sensu_handler" "pagerdutyV2" {
     sensu_asset.sensuPagerdutyHandler.name
   ]
 }
+resource "sensu_handler" "SensuRemediationHandler" {
+  name = "remediation"
+  type = "pipe"
+  namespace = "default"
+  timeout = 10
+  runtime_assets = [sensu_asset.remediation_handler_asset.name]
+  env_vars = {
+    SENSU_API_USER=pavan
+    SENSU_API_PASS=password
+    SENSU_API_URL="http://43.203.207.128:8080"
+  }
+}
