@@ -85,5 +85,5 @@ resource "sensu_check" "billing-availability" {
     "sensu.io/plugins/sensu-pagerduty-handler/config/summary-template" : local.pagerduty_summary_template
     "sensu.io/plugins/sensu-pagerduty-handler/config/details-template" : local.pagerduty_detail_template
   }
-  handlers = [sensu_handler.pagerdutyWarningHandler.name,sensu_handler.SensuRemediationHandler.name]
+  handlers = [sensu_handler.pagerdutyV2.name,sensu_handler.SensuRemediationHandler.name]
 }
