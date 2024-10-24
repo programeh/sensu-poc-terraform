@@ -1,3 +1,25 @@
+variable "nginx_actions" {
+  type = list(object({
+    description = string
+    request     = string
+    occurrences = list(number)
+    severities  = list(number)
+  }))
+  default = [
+    {
+      description = "Perform this action once after Nginx has been down for 30 seconds."
+      request     = "nginx-fix-sop"
+      occurrences = [3]
+      severities  = [1, 2]
+    },
+    {
+      description = "Perform this action once after Nginx has been down for 120 seconds."
+      request     = "nginx-Escalate-Alert"
+      occurrences = [12]
+      severities  = [1, 2]
+    }
+  ]
+}
 locals {
   pagerduty_detail_template = jsonencode({
     "output" : "{{`{{.Check.Output}}`}}",
@@ -6,23 +28,7 @@ locals {
   })
 
   pagerduty_summary_template = "{{`{{.Check.Name}}`}}/{{`{{.Entity.Name}}`}}"
-  remediation_summary=jsondecode(
-    tolist([
-      {
-      description: "Perform this action once after Nginx has been down for 60 seconds.",
-      request: "nginx-fix-sop",
-      occurrences: [ 6 ],
-      severities: [ 1,2 ]
-      },
-      {
-      description: "Perform this action once after Nginx has been down for 120 seconds.",
-      request: "nginx-Escalate-Alert",
-      occurrences: [ 12 ],
-      severities: [ 1,2 ]
-      }
-    ]
-  )
-    )
+  remediation_summary= jsonencode(var.nginx_actions)
 }
 
 
