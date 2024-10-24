@@ -78,6 +78,7 @@ resource "sensu_handler" "pagerdutyV2" {
 resource "sensu_handler" "SensuRemediationHandler" {
   name = "remediation"
   type = "pipe"
+  command = "sensu-go-remediation-handler"
   namespace = "default"
   timeout = 10
   runtime_assets = [sensu_asset.remediation_handler_asset.name]
