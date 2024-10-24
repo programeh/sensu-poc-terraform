@@ -37,7 +37,7 @@ resource "sensu_check" "ExecuteSop"{
   name = "nginx-fix-sop"
   publish = false
   interval = 10
-  command = "export container_id_nginx=$(sudo docker ps | grep nginx | awk  {'print $1'}) && echo $container_id_nginx && sudo docker stop $container_id_nginx"
+  command = "docker-compose up -d"
   subscriptions = ["nginx"]
 }
 
