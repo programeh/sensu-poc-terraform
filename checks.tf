@@ -35,7 +35,7 @@ locals {
 resource "sensu_check" "ExecuteSop"{
   namespace = "default"
   name = "nginx-fix-sop"
-  publish = false
+  publish = true
   interval = 10
   command = "docker-compose up -d"
   subscriptions = ["nginx"]
