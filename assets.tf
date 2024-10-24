@@ -216,3 +216,12 @@ resource "sensu_asset" "sensu_go_fatigue_check_filter_default" {
     sha512 = "da861daf54032c28d9131a3800c0a8de122f591cd2bc7b9601e11e529e63a1fd3227fe67c5e3a800164224111fbe477dadee59196287d6b2e9c183b99b03f37d"
   }
 }
+
+resource "sensu_asset" "remediation_handler_asset" {
+  name      = "sensu-remediation-handler"
+  namespace = "default"
+  build {
+    url    = "https://assets.bonsai.sensu.io/9d58cca88863fcf6fbc50c560daeb78429b6009e/sensu-go-fatigue-check-filter_0.6.2.tar.gz"
+    sha512 = "da861daf54032c28d9131a3800c0a8de122f591cd2bc7b9601e11e529e63a1fd3227fe67c5e3a800164224111fbe477dadee59196287d6b2e9c183b99b03f37d"
+  }
+}
