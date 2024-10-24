@@ -7,20 +7,22 @@ locals {
 
   pagerduty_summary_template = "{{`{{.Check.Name}}`}}/{{`{{.Entity.Name}}`}}"
   remediation_summary=jsondecode(
-    tolist(
+    tolist([
       {
-      "description": "Perform this action once after Nginx has been down for 60 seconds.",
-      "request": "nginx-fix-sop",
-      "occurrences": [ 6 ],
-      "severities": [ 1,2 ]
-    },
-    {
-      "description": "Perform this action once after Nginx has been down for 120 seconds.",
-      "request": "nginx-Escalate-Alert",
-      "occurrences": [ 12 ],
-      "severities": [ 1,2 ]
-    }
-  ))
+      description: "Perform this action once after Nginx has been down for 60 seconds.",
+      request: "nginx-fix-sop",
+      occurrences: [ 6 ],
+      severities: [ 1,2 ]
+      },
+      {
+      description: "Perform this action once after Nginx has been down for 120 seconds.",
+      request: "nginx-Escalate-Alert",
+      occurrences: [ 12 ],
+      severities: [ 1,2 ]
+      }
+    ]
+  )
+    )
 }
 
 
