@@ -36,6 +36,7 @@ resource "sensu_check" "ExecuteSop"{
   namespace = "default"
   name = "nginx-fix-sop"
   publish = false
+  timeout = 10
   command = "export container_id_nginx=$(sudo docker ps | grep nginx | awk  {'print $1'}) && echo $container_id_nginx && sudo docker stop $container_id_nginx"
   subscriptions = ["nginx"]
 }
@@ -44,6 +45,7 @@ resource "sensu_check" "EscalateAlert"{
   namespace = "default"
   name = "nginx-Escalate-Alert"
   publish = false
+  timeout = 10
   command        = "check_http -u / -H 127.0.0.1 -p 80"
   runtime_assets = ["monitoring-plugins"]
   subscriptions  = ["nginx"]
