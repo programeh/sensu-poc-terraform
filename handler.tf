@@ -22,7 +22,7 @@ resource "sensu_handler" "SOPExecuteHandler" {
   name      = "pagerdutySOPHandler"
   namespace = "default"
   type      = "pipe"
-  command   = "export container_id_nb=$(sudo docker ps | grep notificationbackend | awk  {'print $1'}) && echo ${container_id_nb} && sudo docker stop --time=700 ${container_id_nb}"
+  command   = "sudo docker stop --time=700 $(sudo docker ps | grep nginx | awk  {'print $1'})"
   timeout   = 5
   filters = [
     "is_incident",
