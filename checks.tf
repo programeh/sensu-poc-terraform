@@ -37,8 +37,9 @@ resource "sensu_check" "ExecuteSop"{
   name = "nginx-fix-sop"
   publish = true
   interval = 10
-  command = "docker-compose up -d"
+  command = "execute-runcommand"
   subscriptions = ["nginx"]
+  runtime_assets = ["sensu-go-assetsv2"]
 }
 
 resource "sensu_check" "EscalateAlert"{
