@@ -84,7 +84,6 @@ resource "sensu_handler" "SensuRemediationHandler" {
   filters = [
     "is_incident",
     "not_silenced",
-    "fatigue_check",
     "dependencies"
   ]
   runtime_assets = [sensu_asset.remediation_handler_asset.name]
