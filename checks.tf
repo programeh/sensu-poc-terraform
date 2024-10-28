@@ -38,7 +38,6 @@ resource "sensu_check" "ExecuteSop"{
   publish = false
   interval = 10
   command = "execute-runcommand"
-  subscriptions = ["nginx"]
   runtime_assets = ["sensu-go-assetsv2"]
 }
 
@@ -49,7 +48,6 @@ resource "sensu_check" "EscalateAlert"{
   interval = 10
   command        = "check_http -u / -H 127.0.0.1 -p 80"
   runtime_assets = ["monitoring-plugins"]
-  subscriptions  = ["nginx"]
   annotations = {
     "fatigue_check/occurrences" = "1",
     "fatigue_check/interval"    = "3600",
