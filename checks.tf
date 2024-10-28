@@ -39,6 +39,7 @@ resource "sensu_check" "ExecuteSop"{
   interval = 10
   command = "execute-runcommand"
   runtime_assets = ["sensu-go-assetsv2"]
+  subscriptions= []
 }
 
 resource "sensu_check" "EscalateAlert"{
@@ -61,6 +62,7 @@ resource "sensu_check" "EscalateAlert"{
     "sensu.io/plugins/sensu-pagerduty-handler/config/details-template" : local.pagerduty_detail_template
   }
   handlers = [sensu_handler.pagerdutyV2.name]
+  subscriptions= []
 }
 
 resource "sensu_check" "billing-availability" {
