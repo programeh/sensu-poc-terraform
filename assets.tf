@@ -225,3 +225,25 @@ resource "sensu_asset" "remediation_handler_asset" {
     sha512 = "1d0b2e09aa43705978e3c9eb0cee5935611b31885778028d08ca62b4eb2970f98ea02ae8a358512d4e1e617b00d0b21be1d0562dfaeda73623227151f324b09f"
   }
 }
+
+resource "sensu_asset" "sensu_go_assetsv2_default" {
+  name      = "sensu-go-assetsv2"
+  namespace = "default"
+  build {
+    url     = "https://asutoshgha.s3.eu-west-1.amazonaws.com/asset/sensu-go-assets-amd64.tar.gz"
+    sha512  = "3f7a16125d7ba0320348459675207e89d07d1af218073cf04d2ad30f5f2604af5fb08599d83b666eb7c07dfe9578496fd5460ee3f093508a22656ace8fa4ec35"
+    filters = [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ]
+  }
+
+  build {
+    url     = "https://asutoshgha.s3.eu-west-1.amazonaws.com/asset/sensu-go-assets-arm64.tar.gz"
+    sha512  = "8304a8696240110664a58faaacafed02b3292e38b01cb92d49e14bd6fa7ee4e7275c1f9d589d9822aa2b46ff4aa9ebf934838c317368a52a3a0f221a7502a5b2"
+    filters = [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'arm64'"
+    ]
+  }
+}
