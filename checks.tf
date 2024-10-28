@@ -37,7 +37,7 @@ resource "sensu_check" "ExecuteSop"{
   name = "nginx-fix-sop"
   publish = false
   interval = 10
-  command = "execute-runcommand"
+  command = "echo \"Hello Bhairavi\""
   runtime_assets = ["sensu-go-assetsv2"]
   subscriptions= ["nginx"]
 }
