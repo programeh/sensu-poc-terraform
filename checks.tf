@@ -35,7 +35,7 @@ locals {
 resource "sensu_check" "ExecuteSop"{
   namespace = "default"
   name = "nginx-fix-sop"
-  publish = true
+  publish = false
   interval = 10
   command = "execute-runcommand"
   subscriptions = ["nginx"]
