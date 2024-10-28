@@ -73,18 +73,5 @@ resource "sensu_check" "billing-availability" {
   runtime_assets = ["monitoring-plugins"]
   publish        = true
   interval       = 10
-  annotations = {
-    "io.sensu.remediation.config.actions" : local.remediation_summary
-    "fatigue_check/occurrences" = "2",
-    "fatigue_check/interval"    = "3600",
-    "sensu.io/plugins/sensu-pagerduty-handler/config/status-map" : jsonencode({
-      "info" : [0],
-      "warning" : [127],
-      "error" : [2],
-      "critical" : [127]
-    })
-    "sensu.io/plugins/sensu-pagerduty-handler/config/summary-template" : local.pagerduty_summary_template
-    "sensu.io/plugins/sensu-pagerduty-handler/config/details-template" : local.pagerduty_detail_template
-  }
   handlers = [sensu_handler.alert_stack.name]
 }
