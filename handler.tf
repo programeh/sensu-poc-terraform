@@ -112,7 +112,7 @@ resource "sensu_handler" "pagerdutyV3" {
     "is_incident",
     "not_silenced",
     "fatigue_check",
-    "dependencies"
+    "dependencies",
     "five_min_delay_fatigue_check"
   ]
   runtime_assets = [
