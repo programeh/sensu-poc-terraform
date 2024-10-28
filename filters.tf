@@ -18,7 +18,7 @@ resource "sensu_filter" "one_min_Delay" {
   name           = "one_min_delay_fatigue_check"
   namespace      = "default"
   action         = "allow"
-  expressions    = ["event.check.occurrences >= 6"]
+  expressions    = ["fatigue_check(event, 6)"]
   runtime_assets = ["sensu-go-fatigue-check-filter"]
 }
 
@@ -26,6 +26,6 @@ resource "sensu_filter" "five_min_Delay" {
   name           = "five_min_delay_fatigue_check"
   namespace      = "default"
   action         = "allow"
-  expressions    = ["event.check.occurrences >= 30"]
+  expressions    = ["fatigue_check(event, 30)"]
   runtime_assets = ["sensu-go-fatigue-check-filter"]
 }
