@@ -67,7 +67,7 @@ resource "sensu_check" "EscalateAlert"{
 
 resource "sensu_check" "billing-availability" {
   namespace   = "default"
-  command        = "check_http -u / -H 127.0.0.1 -p 80"
+  command        = "check_http -u / -H 127.0.0.1 -p 80 -w 2 -c 5"
   name           = "nginx-availability"
   subscriptions  = ["nginx"]
   runtime_assets = ["monitoring-plugins"]
@@ -86,5 +86,5 @@ resource "sensu_check" "billing-availability" {
     "sensu.io/plugins/sensu-pagerduty-handler/config/summary-template" : local.pagerduty_summary_template
     "sensu.io/plugins/sensu-pagerduty-handler/config/details-template" : local.pagerduty_detail_template
   }
-  handlers = [sensu_handler.pagerdutyV2.name,sensu_handler.SensuRemediationHandler.name]
+  handlers = [sensu_handler.alert_stack.name]
 }
