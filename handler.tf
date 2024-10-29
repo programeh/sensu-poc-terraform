@@ -10,8 +10,8 @@ resource "sensu_handler" "pagerdutyWarningHandler" {
   filters = [
     "is_incident",
     "not_silenced",
-    "fatigue_check",
     "dependencies"
+    "one_min_delay_fatigue_check"
   ]
   runtime_assets = [
     sensu_asset.sensuPagerdutyHandler.name
@@ -104,33 +104,31 @@ resource "sensu_handler" "SensuCustomHandler" {
   filters = ["is_incident","one_min_delay_fatigue_check"]
 }
 
-#resource "sensu_handler" "pagerdutyV3" {
-#  name      = "pagerdutyV3"
-#  namespace = "default"
-#  type      = "pipe"
-#  command   = "sensu-pagerduty-handler  --details-format json"
-#  timeout   = 0
-#  env_vars  = {
-#    PAGERDUTY_TOKEN = "28b3ba1e09714e07c0c610ab02c2c29b"
-#  }
-#  filters = [
-#    "is_incident",
-#    "not_silenced",
-#    "fatigue_check",
-#    "dependencies",
-#    "five_min_delay_fatigue_check"
-#  ]
-#  runtime_assets = [
-#    sensu_asset.sensuPagerdutyHandler.name
-#  ]
-#}
+resource "sensu_handler" "pagerdutyV3" {
+  name      = "pagerdutyV3"
+  namespace = "default"
+  type      = "pipe"
+  command   = "sensu-pagerduty-handler  --details-format json"
+  timeout   = 0
+  env_vars  = {
+    PAGERDUTY_TOKEN = "28b3ba1e09714e07c0c610ab02c2c29b"
+  }
+  filters = [
+    "is_incident",
+    "not_silenced",
+    "dependencies",
+    "five_min_delay_fatigue_check"
+  ]
+  runtime_assets = [
+    sensu_asset.sensuPagerdutyHandler.name
+  ]
+}
 
 resource "sensu_handler" "alert_stack" {
   name = "alert_stack"
   type = "set"
   handlers = [
     "pagerdutyWarningHandler",
-    "remediation-handler-v2",
-    "pagerdutyV2"
+    "pagerdutyV3"
   ]
 }
