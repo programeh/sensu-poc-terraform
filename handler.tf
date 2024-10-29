@@ -108,8 +108,8 @@ resource "sensu_handler" "pagerdutyV3" {
   name      = "pagerdutyV3"
   namespace = "default"
   type      = "pipe"
-  command   = "sensu-pagerduty-handler  --details-format json"
-  timeout   = 0
+  command   = "sensu-pagerduty-handler --severity=critical --details-format json"
+  timeout   = 2
   env_vars  = {
     PAGERDUTY_TOKEN = "28b3ba1e09714e07c0c610ab02c2c29b"
   }
