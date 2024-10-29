@@ -10,7 +10,7 @@ resource "sensu_handler" "pagerdutyWarningHandler" {
   filters = [
     "is_incident",
     "not_silenced",
-    "dependencies"
+    "dependencies",
     "one_min_delay_fatigue_check"
   ]
   runtime_assets = [
