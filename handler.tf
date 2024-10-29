@@ -94,15 +94,15 @@ resource "sensu_handler" "SensuRemediationHandler" {
   }
 }
 
-#resource "sensu_handler" "SensuCustomHandler" {
-#  name = "remediation-handler-v2"
-#  type = "pipe"
-#  command = "execute-runcommand"
-#  namespace = "default"
-#  timeout = 10
-#  runtime_assets = [sensu_asset.sensu_go_assetsv2_default.name]
-#  filters = ["is_incident","one_min_delay_fatigue_check","fatigue_check"]
-#}
+resource "sensu_handler" "SensuCustomHandler" {
+  name = "remediation-handler-v2"
+  type = "pipe"
+  command = "execute-runcommand"
+  namespace = "default"
+  timeout = 10
+  runtime_assets = [sensu_asset.sensu_go_assetsv2_default.name]
+  filters = ["is_incident","one_min_delay_fatigue_check"]
+}
 
 #resource "sensu_handler" "pagerdutyV3" {
 #  name      = "pagerdutyV3"
@@ -129,7 +129,8 @@ resource "sensu_handler" "alert_stack" {
   name = "alert_stack"
   type = "set"
   handlers = [
-    "pagerdutyV2",
-    "remediation",
+    "pagerdutyWarningHandler",
+    "remediation-handler-v2",
+    "pagerdutyV2"
   ]
 }
