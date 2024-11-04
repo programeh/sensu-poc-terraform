@@ -18,6 +18,26 @@ resource "sensu_handler" "pagerdutyWarningHandler" {
   ]
 }
 
+resource "sensu_handler" "pagerdutyWarningRemediationHandler" {
+  name      = "pagerdutyWarningRemediationHandler"
+  namespace = "default"
+  type      = "pipe"
+  command   = "sensu-pagerduty-handler  --severity=warning  --summary-template=\"Remediation\" --details-template \"{\"output\": \"{{`{{.Check.Output}}`}}\", \"stackName\": \"{{`{{.Entity.Labels.stackname}}`}}\", \"alertGroupingKey\": \"nginx-{{`{{.Entity.Labels.stackname}}`}}\"}\" --details-format json"
+  timeout   = 5
+  env_vars  = {
+    PAGERDUTY_TOKEN = "28b3ba1e09714e07c0c610ab02c2c29b"
+  }
+  filters = [
+    "is_incident",
+    "not_silenced",
+    "dependencies",
+    "two_min_delay_fatigue_check"
+  ]
+  runtime_assets = [
+    sensu_asset.sensuPagerdutyHandler.name
+  ]
+}
+
 resource "sensu_handler" "SOPExecuteHandler" {
   name      = "pagerdutySOPHandler"
   namespace = "default"
@@ -47,7 +67,7 @@ resource "sensu_handler" "pagerdutyEscalationHandler" {
   filters = [
     "is_incident",
     "not_silenced",
-    "fatigue_check",
+    "five_min_delay_fatigue_check",
     "dependencies"
   ]
   runtime_assets = [
@@ -129,6 +149,7 @@ resource "sensu_handler" "alert_stack" {
   type = "set"
   handlers = [
     "pagerdutyWarningHandler",
-    "pagerdutyV3"
+    "pagerdutyWarningRemediationHandler",
+    "pagerdutyEscalationHandler"
   ]
 }
