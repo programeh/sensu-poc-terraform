@@ -2,7 +2,7 @@ resource "sensu_handler" "pagerdutyWarningHandler" {
   name      = "pagerdutyWarningHandler"
   namespace = "default"
   type      = "pipe"
-  command   = "sensu-pagerduty-handler  --severity=warning --details-format json"
+  command   = "sensu-pagerduty-handler  --severity=warning  --summary-template=\"{{`{{.Check.Name}}`}}/{{`{{.Entity.Name}}`}}\" --details-template \"{\"output\": \"{{`{{.Check.Output}}`}}\", \"stackName\": \"{{`{{.Entity.Labels.stackname}}`}}\", \"alertGroupingKey\": \"nginx-{{`{{.Entity.Labels.stackname}}`}}\"}\" --details-format json"
   timeout   = 5
   env_vars  = {
     PAGERDUTY_TOKEN = "28b3ba1e09714e07c0c610ab02c2c29b"
@@ -39,7 +39,7 @@ resource "sensu_handler" "pagerdutyEscalationHandler" {
   name      = "pagerdutyEscalationHandler"
   namespace = "default"
   type      = "pipe"
-  command   = "sensu-pagerduty-handler  --severity=critical --details-format json"
+  command   = "sensu-pagerduty-handler  --severity=critical  --summary-template=\"{{`{{.Check.Name}}`}}/{{`{{.Entity.Name}}`}}\" --details-template \"{\"output\": \"{{`{{.Check.Output}}`}}\", \"stackName\": \"{{`{{.Entity.Labels.stackname}}`}}\", \"alertGroupingKey\": \"nginx-{{`{{.Entity.Labels.stackname}}`}}\"}\" --details-format json"
   timeout   = 5
   env_vars  = {
     PAGERDUTY_TOKEN = "28b3ba1e09714e07c0c610ab02c2c29b"
@@ -97,7 +97,7 @@ resource "sensu_handler" "SensuRemediationHandler" {
 resource "sensu_handler" "SensuCustomHandler" {
   name = "remediation-handler-v2"
   type = "pipe"
-  command = "execute-runcommand"
+  command = "echo \"Hello World\""
   namespace = "default"
   timeout = 10
   runtime_assets = [sensu_asset.sensu_go_assetsv2_default.name]
